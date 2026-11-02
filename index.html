@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -168,8 +167,7 @@ button {
 /* OPEN PAGE */
 
 #openPage {
-  background:
-    radial-gradient(circle at center, #47235b66, transparent 70%);
+  background: radial-gradient(circle at center, #47235b66, transparent 70%);
 }
 
 .open-content {
@@ -247,8 +245,7 @@ button {
   padding: 27px 21px;
   border-radius: 5px;
   border: 7px double #d8b78d;
-  background:
-    linear-gradient(#fff9e9, #fff0d8);
+  background: linear-gradient(#fff9e9, #fff0d8);
   box-shadow: 0 12px 40px #0008;
   text-align: left;
   line-height: 1.9;
@@ -460,6 +457,7 @@ button {
     opacity: 0;
   }
 }
+
 </style>
 </head>
 
@@ -519,7 +517,7 @@ button {
       November 2, 2026 🎂
     </h2>
 
-    <button class="sound-btn" id="soundButton">
+    <button type="button" class="sound-btn" id="soundButton">
       ♫ ENABLE CUTE MUSIC
     </button>
 
@@ -536,7 +534,7 @@ button {
 </section>
 
 
-<!-- OPEN PAGE: ONLY AFTER COUNTDOWN -->
+<!-- OPEN PAGE -->
 
 <section id="openPage" class="page" hidden>
 
@@ -556,7 +554,7 @@ button {
       Ready to open it? 🥹💗
     </p>
 
-    <button class="open-button" id="openButton">
+    <button type="button" class="open-button" id="openButton">
       OPEN 👐
     </button>
 
@@ -569,7 +567,7 @@ button {
 </section>
 
 
-<!-- BIRTHDAY PAGE: AFTER OPEN BUTTON -->
+<!-- BIRTHDAY PAGE -->
 
 <section id="birthdayPage" class="page" hidden>
 
@@ -673,7 +671,7 @@ button {
       And now... one last little surprise for you 🥹
     </p>
 
-    <button
+    <button type="button"
       class="mushroom-button"
       id="mushroomButton"
       aria-label="Open birthday surprise">
@@ -691,7 +689,7 @@ button {
   </div>
 
 
-  <!-- FINAL SURPRISE: AFTER MUSHROOM -->
+  <!-- FINAL SURPRISE -->
 
   <div id="surprise" hidden>
 
@@ -737,7 +735,7 @@ button {
   </div>
 
 
-  <button class="sound-btn" id="musicToggle">
+  <button type="button" class="sound-btn" id="musicToggle">
     ♫ MUSIC ON
   </button>
 
@@ -749,6 +747,29 @@ button {
 
 
 <script>
+
+/* PAGE SWITCHING - FIXED */
+
+function showPage(pageId) {
+
+  const pages = document.querySelectorAll(".page");
+
+  pages.forEach(page => {
+    page.classList.remove("active");
+    page.hidden = true;
+  });
+
+  const selectedPage = document.getElementById(pageId);
+
+  selectedPage.hidden = false;
+  selectedPage.classList.add("active");
+
+  window.scrollTo({
+    top: 0,
+    behavior: "smooth"
+  });
+}
+
 
 /* COUNTDOWN */
 
@@ -794,12 +815,7 @@ function showBirthday() {
 
   birthdayShown = true;
 
-  document.getElementById("countdownPage").hidden = true;
-
-  const openPage = document.getElementById("openPage");
-
-  openPage.hidden = false;
-  openPage.classList.add("active");
+  showPage("openPage");
 
   startRevealMusic();
   burstEmojis();
@@ -819,24 +835,14 @@ const countdownTimer = setInterval(() => {
 }, 1000);
 
 
-/* OPEN BUTTON: SHOW BIRTHDAY LETTER */
+/* OPEN BUTTON - FIXED */
 
 document.getElementById("openButton")
   .addEventListener("click", function() {
 
-    document.getElementById("openPage").hidden = true;
-
-    const birthday = document.getElementById("birthdayPage");
-
-    birthday.hidden = false;
-    birthday.classList.add("active");
+    showPage("birthdayPage");
 
     burstEmojis();
-
-    window.scrollTo({
-      top: 0,
-      behavior: "smooth"
-    });
 
   });
 
@@ -1062,7 +1068,8 @@ function createCrackers() {
   for (let i = 0; i < 65; i++) {
 
     const cracker = document.createElement("div");
-cracker.className = "cracker";
+
+    cracker.className = "cracker";
 
     cracker.textContent =
       ["✨", "🎉", "💖", "🎊", "❤️"][
@@ -1087,12 +1094,9 @@ cracker.className = "cracker";
     setTimeout(() => cracker.remove(), 1600);
 
   }
-
-}
+  }
 
 </script>
 
 </body>
 </html>
-
-    
